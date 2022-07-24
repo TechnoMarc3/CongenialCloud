@@ -1,0 +1,14 @@
+de\linux300\api\manager\ICloudServerManager.class
+de\linux300\api\manager\impl\AbstractCloudServerManager.class
+de\linux300\api\serverGroup\ICloudServerGroup.class
+de\linux300\api\manager\ICloudServerGroupManager.class
+de\linux300\api\CloudApi.class
+de\linux300\api\ICloudApi.class
+de\linux300\api\manager\impl\AbstractCloudProcessManager.class
+de\linux300\api\server\ICloudServer.class
+de\linux300\api\versions\Versions.class
+de\linux300\api\manager\ICloudPlayerManager.class
+de\linux300\api\manager\ICloudProcessManager.class
+de\linux300\api\player\ICloudPlayer.class
+de\linux300\api\manager\impl\AbstractCloudPlayerManager.class
+de\linux300\api\manager\impl\AbstractCloudServerGroupManager.class

@@ -1,0 +1,4 @@
+name: CloudSpigot
+version: '1.0-SNAPSHOT'
+main: de.linux3000.Main
+api-version: 1.16

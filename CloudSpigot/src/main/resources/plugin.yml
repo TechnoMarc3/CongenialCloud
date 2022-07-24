@@ -1,0 +1,4 @@
+name: CloudSpigot
+version: '${project.version}'
+main: de.linux3000.Main
+api-version: 1.16
