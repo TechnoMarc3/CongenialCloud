@@ -4,6 +4,7 @@ import de.linux300.api.server.ICloudServer;
 import de.linux300.api.versions.Versions;
 
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,5 +23,5 @@ public interface ICloudServerGroup {
 
     int percentageForNewServer();
     int playerForNewServer();
-    Versions version();
+    File version();
 }

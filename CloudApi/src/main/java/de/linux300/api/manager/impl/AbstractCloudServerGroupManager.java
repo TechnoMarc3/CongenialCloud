@@ -43,6 +43,10 @@ public abstract class AbstractCloudServerGroupManager implements ICloudServerGro
         serverGroups.remove(group);
     }
 
+    public List<ICloudServerGroup> getServerGroups() {
+        return serverGroups;
+    }
+
     @Override
     public void addServerToServerGroup(ICloudServer server, ICloudServerGroup group) {
         group.allServer().add(server);

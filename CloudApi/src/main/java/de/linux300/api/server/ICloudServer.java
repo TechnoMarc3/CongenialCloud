@@ -3,6 +3,7 @@ package de.linux300.api.server;
 import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.serverGroup.ICloudServerGroup;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,10 +18,10 @@ public interface ICloudServer {
     int playerAmount();
     String host();
     int port();
-    String version();
+    File version();
     boolean isFull();
     boolean isOnline();
     List<ICloudPlayer> player();
-
+    ServerTypes serverType();
 
 }

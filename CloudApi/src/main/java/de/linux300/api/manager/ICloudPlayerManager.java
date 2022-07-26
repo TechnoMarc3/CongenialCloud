@@ -3,6 +3,7 @@ package de.linux300.api.manager;
 import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.server.ICloudServer;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ICloudPlayerManager {
@@ -19,6 +20,12 @@ public interface ICloudPlayerManager {
     ICloudPlayer getPlayerByUUID(UUID uuid);
 
     boolean banPlayer(ICloudPlayer player, String reason);
-    boolean warnPlayer(ICloudPlayer player, String reason); //3* warn = ban
+    boolean kickPlayer(ICloudPlayer player, String reason); //3* warn = ban
+
+    void sendMessageToPlayer(ICloudPlayer player, String message);
+    void sendActionBar(ICloudPlayer player, String actionbar);
+    void sendTablist(ICloudPlayer player, List<String> headers, List<String> footers);
+    boolean hasPermission(ICloudPlayer player, String permission);
+    void sendPlayerToLobby(ICloudPlayer player);
 
 }

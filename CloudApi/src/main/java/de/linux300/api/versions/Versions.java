@@ -7,6 +7,7 @@ import java.io.File;
 public enum Versions {
     SPIGOT_1_19("server", new File("")),
     SPIGOT_1_16_4("server", new File("")),
+    BUNGEECORD("proxy", new File("")),
     NULL("any", new File(""));
 
     private String key;

@@ -38,11 +38,18 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
         server.player().add(player);
     }
 
-
+    @Override
+    public List<ICloudServer> getAllRegisteredServer() {
+        return servers;
+    }
 
     @Override
     public void registerServer(ICloudServer server) {
+        System.out.println("server: " + server);
         servers.add(server);
+
+        System.out.println(servers);
+        System.out.println("registered");
     }
 
     @Override
