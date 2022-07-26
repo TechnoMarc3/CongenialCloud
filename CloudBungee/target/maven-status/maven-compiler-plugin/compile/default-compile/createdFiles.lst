@@ -1,11 +1,2 @@
-de\linux3000\networking\NettyClient.class
-de\linux3000\networking\packets\PacketManager.class
-de\linux3000\networking\packets\pkts\ProxyEnabledPacket.class
-de\linux3000\networking\NetworkHandler.class
-de\linux3000\networking\packets\Packet.class
-de\linux3000\networking\packets\pkts\HelloPacket.class
-de\linux3000\networking\NettyClient$1$1.class
+de\linux3000\utils\ArrayUtils.class
 de\linux3000\Main.class
-de\linux3000\networking\NettyClient$1$2.class
-de\linux3000\networking\NettyClient$1.class
-de\linux3000\networking\packets\pkts\ServerRegisterPacket.class
