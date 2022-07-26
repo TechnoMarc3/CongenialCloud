@@ -37,7 +37,7 @@ public class NettyClient {
                                     .addLast("encoder", new MessageToByteEncoder<Packet>() {
                                         @Override
                                         protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
-                                            System.out.println("encode");
+
                                             int id = ArrayUtils.find(PacketManager.out, packet.getClass());
                                             if(id == -1) throw new IOException("Invalid Packet id!");
                                             packet.write(byteBuf);
@@ -46,7 +46,7 @@ public class NettyClient {
                                     .addLast("decoder", new ByteToMessageDecoder() {
                                         @Override
                                         protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
-                                            System.out.println("decode");
+
                                             int id = byteBuf.readInt();
                                             if(id == -1) throw new IOException("Invalid packet id!");
                                             Packet packet = (Packet) PacketManager.in[id].newInstance();

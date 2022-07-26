@@ -13,10 +13,10 @@ public class HelloPacket implements Packet {
 
     @Override
     public void write(ByteBuf buf) {
-        System.out.println("writing");
+
         buf.writeInt(ArrayUtils.find(PacketManager.out, this.getClass()));
         buf.writeInt(2);
-        System.out.println("buf: " + buf);
+
     }
 
 
