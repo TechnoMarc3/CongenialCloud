@@ -50,11 +50,11 @@ public class Downloader implements Runnable{
                 downloaded += read;
                 percentDownloaded = (downloaded*100)/fileSize;
                 String percent = String.format("%.4f", percentDownloaded);
-
+                System.out.println(percent + "% downloaded");
             }
             bout.close();
             in.close();
-           // System.out.println("Download complete");
+          System.out.println("Download complete");
             Thread.currentThread().stop();
         }catch (IOException e) {
             e.printStackTrace();

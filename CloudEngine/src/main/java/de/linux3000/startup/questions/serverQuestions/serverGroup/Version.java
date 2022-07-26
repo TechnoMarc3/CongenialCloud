@@ -50,7 +50,7 @@ public class Version implements StartupQuestion<String> {
         for(String s : versionsList) {
             if(s.equalsIgnoreCase(answer)) {
 
-                Cloud.getINSTANCE().getCloudServerGroupCacheManager().get().setVersion(Versions.valueOf(answer.toUpperCase()));
+                Cloud.getINSTANCE().getCloudServerGroupCacheManager().get().setVersion(Versions.valueOf(s).getFile());
                 return true;
             }
         }

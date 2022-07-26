@@ -4,6 +4,7 @@ import de.linux300.api.server.ICloudServer;
 import de.linux300.api.serverGroup.ICloudServerGroup;
 import de.linux300.api.versions.Versions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,13 +19,13 @@ public class CachedCloudServerGroup implements ICloudServerGroup {
     int playerForNew;
     int ram;
     int maxPlayer;
-    Versions versions;
+    File versions;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setVersion(Versions versions) {
+    public void setVersion(File versions) {
         this.versions = versions;
     }
 
@@ -91,7 +92,7 @@ public class CachedCloudServerGroup implements ICloudServerGroup {
     }
 
     @Override
-    public Versions version() {
+    public File version() {
         return versions;
     }
 }

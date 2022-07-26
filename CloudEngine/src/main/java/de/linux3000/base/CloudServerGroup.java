@@ -4,6 +4,7 @@ import de.linux300.api.server.ICloudServer;
 import de.linux300.api.serverGroup.ICloudServerGroup;
 import de.linux300.api.versions.Versions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,14 +13,14 @@ public class CloudServerGroup implements ICloudServerGroup {
 
     private String name;
     private List<ICloudServer> server = new ArrayList<>();
-    private Versions version;
+    private File version;
     private int percentageForNewServer;
     private int playerForNewServer;
     private int ram;
 
     private UUID uuid;
 
-    public CloudServerGroup(String name, Versions version, int percentageForNewServer, int playerForNewServer, int ram) {
+    public CloudServerGroup(String name, File version, int percentageForNewServer, int playerForNewServer, int ram) {
         this.name = name;
         this.version = version;
         this.percentageForNewServer = percentageForNewServer;
@@ -70,7 +71,7 @@ public class CloudServerGroup implements ICloudServerGroup {
 
 
     @Override
-    public Versions version() {
+    public File version() {
         return this.version;
     }
 

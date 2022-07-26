@@ -18,13 +18,14 @@ public class HelloPacket implements Packet {
         switch (num) {
             case 0:
             case 1:
-                System.out.println("Proxy Hello");
+
+             //   System.out.println("Proxy Hello");
                 break;
             case 2:
-                System.out.println("Server Wrapper Hello");
+             //   System.out.println("Server Wrapper Hello");
                 break;
             case 3:
-                System.out.println("Server Hello");
+              //  System.out.println("Proxy Wrapper Hello");
                 break;
         }
     }

@@ -1,8 +1,11 @@
 package de.linux3000;
 
+import de.linux300.api.CloudApi;
+import de.linux300.api.versions.Versions;
 import de.linux3000.cache.manager.CloudServerGroupCacheManager;
 import de.linux3000.commands.CommandManager;
 import de.linux3000.commands.CommandRegistry;
+import de.linux3000.impl.CloudApiImpl;
 import de.linux3000.manager.CloudServerGroupManager;
 import de.linux3000.networking.NettyServer;
 import de.linux3000.startup.StartupManager;
@@ -18,15 +21,31 @@ public class Cloud {
     private CloudServerGroupManager cloudServerManagerGroup ;
     private CommandManager commandManager;
     private CloudServerGroupCacheManager cloudServerGroupCacheManager;
-    public static void main(String[] args) throws InterruptedException {
+
+
+    public static void main(String[] args) {
 
         new Cloud().initialize();
 
+        CloudApi.setInstance(new CloudApiImpl());
+
+
         getINSTANCE().organizer.registerQuestions();
         getINSTANCE().organizer.registerServerQuestions();
-     //  getINSTANCE().manager.doStartup();
+     getINSTANCE().manager.doStartup();
+
         getINSTANCE().commandRegistry.registerCommands();
-        new NettyServer();
+
+
+
+        new Thread(() -> {
+            try {
+                new NettyServer();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         new Thread(() -> {
             getINSTANCE().commandManager.listenForCommands();
         }).start();

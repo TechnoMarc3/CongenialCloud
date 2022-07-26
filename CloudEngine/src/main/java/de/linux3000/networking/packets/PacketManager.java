@@ -16,14 +16,6 @@ public class PacketManager {
     public static void registerPackets() {
 
         in[0] = HelloPacket.class;
-        in[1] = ProxyEnabledPacket.class;
-        in[2] = ServerEnabledPacket.class;
-        in[3] = BanPlayerPacket.class;
-        in[4] = SendPlayerToServerPacket.class;
-        in[5] = ShutdownCloudServerPacket.class;
-        in[6] = WarnPlayerPacket.class;
-
-        out[15] = ServerRegisterPacket.class;
 
 
 

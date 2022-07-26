@@ -39,7 +39,7 @@ public class NettyServer {
                                     .addLast("encoder", new MessageToByteEncoder<Packet>() {
                                         @Override
                                         protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
-                                            System.out.println("encode");
+
                                             int id = ArrayUtils.find(PacketManager.out, packet.getClass());
 
 
@@ -49,10 +49,10 @@ public class NettyServer {
                                     .addLast("decoder", new ByteToMessageDecoder() {
                                         @Override
                                         protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
-                                            System.out.println("decode");
+
 
                                             int id = byteBuf.readInt();
-                                            System.out.println(id);
+
 
                                             Packet packet = (Packet) PacketManager.in[id].newInstance();
                                             if(packet instanceof HelloPacket) {
@@ -71,6 +71,7 @@ public class NettyServer {
                     }).bind(25847).sync().channel().closeFuture().syncUninterruptibly();
 
         }
+
 
 
 

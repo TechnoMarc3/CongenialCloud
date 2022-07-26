@@ -1,5 +1,6 @@
 package de.linux3000.startup;
 
+import de.linux3000.startup.questions.cloudQuestions.Proxy;
 import de.linux3000.startup.questions.serverQuestions.serverGroup.*;
 import de.linux3000.startup.questions.cloudQuestions.CloudName;
 
@@ -14,6 +15,7 @@ public class StartupOrganizer {
     public void registerQuestions() {
         questions.add(new CloudName());
         questions.add(new de.linux3000.startup.questions.cloudQuestions.Ram());
+        questions.add(new Proxy());
     }
 
     public void registerServerQuestions() {
