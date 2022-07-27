@@ -1,15 +1,20 @@
 package de.linux3000;
 
 import de.linux300.api.CloudApi;
+import de.linux300.api.event.EventListener;
 import de.linux300.api.versions.Versions;
 import de.linux3000.cache.manager.CloudServerGroupCacheManager;
 import de.linux3000.commands.CommandManager;
 import de.linux3000.commands.CommandRegistry;
 import de.linux3000.impl.CloudApiImpl;
+import de.linux3000.listener.CloudListener;
 import de.linux3000.manager.CloudServerGroupManager;
 import de.linux3000.networking.NettyServer;
 import de.linux3000.startup.StartupManager;
 import de.linux3000.startup.StartupOrganizer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Cloud {
@@ -21,6 +26,7 @@ public class Cloud {
     private CloudServerGroupManager cloudServerManagerGroup ;
     private CommandManager commandManager;
     private CloudServerGroupCacheManager cloudServerGroupCacheManager;
+    private List<EventListener> listeners = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -64,7 +70,22 @@ public class Cloud {
         commandManager = new CommandManager();
         cloudServerGroupCacheManager = new CloudServerGroupCacheManager();
 
+        registerListener(new CloudListener());
 
+
+    }
+
+
+    public void registerListener(EventListener listener) {
+        listeners.add(listener);
+    }
+
+    public void unregisterListener(EventListener listener) {
+        listeners.remove(listener);
+    }
+
+    public List<EventListener> getListeners() {
+        return listeners;
     }
 
     public static Cloud getINSTANCE() {

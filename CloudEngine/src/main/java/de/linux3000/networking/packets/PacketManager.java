@@ -2,10 +2,6 @@ package de.linux3000.networking.packets;
 
 import de.linux3000.networking.packets.pkts.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class PacketManager {
 
 
@@ -17,6 +13,8 @@ public class PacketManager {
 
         in[0] = HelloPacket.class;
 
+        in[5] = CloudRegisterServerPacket.class;
+        out[5] = CloudRegisterServerPacket.class;
 
 
     }

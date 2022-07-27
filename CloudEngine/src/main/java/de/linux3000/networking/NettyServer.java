@@ -53,7 +53,6 @@ public class NettyServer {
 
                                             int id = byteBuf.readInt();
 
-
                                             Packet packet = (Packet) PacketManager.in[id].newInstance();
                                             if(packet instanceof HelloPacket) {
                                                 ((HelloPacket) packet).read(byteBuf, ctx.channel());
