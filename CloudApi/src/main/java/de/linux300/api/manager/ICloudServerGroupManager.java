@@ -18,4 +18,6 @@ public interface ICloudServerGroupManager {
     void startNewService(ICloudServerGroup group);
     void shutdownAllServer(ICloudServerGroup group);
 
+    void update(ICloudServerGroup group);
+
 }

@@ -7,12 +7,17 @@ de\linux300\api\CloudApi.class
 de\linux300\api\ICloudApi.class
 de\linux300\api\manager\impl\AbstractCloudProcessManager.class
 de\linux300\api\server\CloudServer.class
+de\linux300\api\event\events\CloudServerUnregisterEvent.class
+de\linux300\api\event\IEvent.class
+de\linux300\api\event\events\CloudServerRegisterEvent.class
 de\linux300\api\server\ICloudServer.class
 de\linux300\api\server\ServerTypes.class
 de\linux300\api\versions\Versions.class
 de\linux300\api\manager\ICloudPlayerManager.class
 de\linux300\api\manager\ICloudProcessManager.class
 de\linux300\api\player\ICloudPlayer.class
+de\linux300\api\event\EventListener.class
 de\linux300\api\manager\impl\AbstractCloudPlayerManager.class
+de\linux300\api\manager\ICloudEventManager.class
 de\linux300\api\manager\impl\AbstractCloudServerGroupManager.class
 de\linux300\api\server\ProxyCloudServer.class

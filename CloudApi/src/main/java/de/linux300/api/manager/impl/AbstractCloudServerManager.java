@@ -1,5 +1,7 @@
 package de.linux300.api.manager.impl;
 
+import de.linux300.api.CloudApi;
+import de.linux300.api.event.events.CloudServerRegisterEvent;
 import de.linux300.api.manager.ICloudServerManager;
 import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.server.ICloudServer;
@@ -50,6 +52,8 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
 
         System.out.println(servers);
         System.out.println("registered");
+
+        CloudApi.getINSTANCE().getEventManager().callEvent(new CloudServerRegisterEvent(server));
     }
 
     @Override
@@ -60,5 +64,11 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
     @Override
     public void removePlayerFromServer(ICloudServer server, ICloudPlayer player) {
         server.player().remove(player);
+    }
+
+    @Override
+    public void update(ICloudServer server) {
+        this.servers.remove(server);
+        this.servers.add(server);
     }
 }

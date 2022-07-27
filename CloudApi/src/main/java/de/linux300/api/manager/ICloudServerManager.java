@@ -26,6 +26,8 @@ public interface ICloudServerManager {
 
     void removePlayerFromServer(ICloudServer server, ICloudPlayer player);
 
+    void update(ICloudServer server);
+
 
 
 }

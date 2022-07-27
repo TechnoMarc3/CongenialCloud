@@ -34,6 +34,11 @@ public class CloudServer implements ICloudServer {
 
     }
 
+    public CloudServer(UUID uuid, String serverType) {
+        this.uuid = uuid;
+        this.serverTypes = ServerTypes.valueOf(serverType);
+    }
+
     public void setServer(int server) {
         this.server = server;
     }

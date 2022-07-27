@@ -45,5 +45,9 @@ public abstract class AbstractCloudPlayerManager implements ICloudPlayerManager 
         return null;
     }
 
-
+    @Override
+    public void update(ICloudPlayer player) {
+        this.players.remove(player);
+        this.players.add(player);
+    }
 }

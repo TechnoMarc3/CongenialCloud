@@ -28,4 +28,6 @@ public interface ICloudPlayerManager {
     boolean hasPermission(ICloudPlayer player, String permission);
     void sendPlayerToLobby(ICloudPlayer player);
 
+    void update(ICloudPlayer player);
+
 }
