@@ -16,6 +16,9 @@ public class PacketManager {
 
         out[0] = HelloPacket.class;
 
+        in[5] = CloudRegisterServerPacket.class;
+        out[5] = CloudRegisterServerPacket.class;
+
 
 
     }

@@ -1,20 +1,18 @@
 package de.linux3000;
 
 import de.linux300.api.CloudApi;
-import de.linux300.api.manager.ICloudPlayerManager;
-import de.linux300.api.manager.ICloudProcessManager;
-import de.linux300.api.manager.ICloudServerGroupManager;
-import de.linux300.api.manager.ICloudServerManager;
+import de.linux300.api.event.EventListener;
+import de.linux300.api.manager.*;
 import de.linux300.api.manager.impl.AbstractCloudProcessManager;
 import de.linux300.api.server.ProxyCloudServer;
 import de.linux300.api.serverGroup.CloudServerGroup;
-import de.linux3000.impl.CloudPlayerManagerImpl;
-import de.linux3000.impl.CloudServerGroupManagerImpl;
-import de.linux3000.impl.CloudServerManagerImpl;
+import de.linux3000.impl.*;
 import de.linux3000.networking.NettyClient;
 import io.netty.channel.Channel;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProxyWrapper extends CloudApi{
 
@@ -26,10 +24,13 @@ public class ProxyWrapper extends CloudApi{
     private CloudServerManagerImpl cloudServerManager;
     private CloudServerGroupManagerImpl cloudServerGroupManager;
     private AbstractCloudProcessManager cloudProcessManager;
+    private CloudEventManagerImpl cloudEventManager;
 
     private Channel connectionToManager;
 
     public static ProxyCloudServer server;
+
+    private List<EventListener> listeners = new ArrayList<>();
 
 
 
@@ -42,7 +43,6 @@ public class ProxyWrapper extends CloudApi{
         server = new ProxyCloudServer(proxy);
 
         new ProxyWrapper();
-
 
 
         CloudApi.getINSTANCE().getServerManager().startProxyServer(server);
@@ -60,12 +60,24 @@ public class ProxyWrapper extends CloudApi{
         cloudServerGroupManager = new CloudServerGroupManagerImpl();
         cloudServerManager = new CloudServerManagerImpl();
         cloudProcessManager = new AbstractCloudProcessManager();
+        cloudEventManager = new CloudEventManagerImpl();
 
         CloudApi.setInstance(this);
 
-
     }
 
+
+    public void registerListener(EventListener listener) {
+        listeners.add(listener);
+    }
+
+    public void unregisterListener(EventListener listener) {
+        listeners.remove(listener);
+    }
+
+    public List<EventListener> getListeners() {
+        return listeners;
+    }
 
     public void stop() {
         //TODO -> Stop Services
@@ -95,6 +107,11 @@ public class ProxyWrapper extends CloudApi{
     @Override
     public ICloudServerManager getServerManager() {
         return this.cloudServerManager;
+    }
+
+    @Override
+    public ICloudEventManager getEventManager() {
+        return this.cloudEventManager;
     }
 
     @Override

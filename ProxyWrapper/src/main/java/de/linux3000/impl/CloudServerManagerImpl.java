@@ -6,6 +6,7 @@ import de.linux300.api.server.ICloudServer;
 import de.linux300.api.server.ServerTypes;
 import de.linux3000.Agent;
 import de.linux3000.ProxyWrapper;
+import net.md_5.bungee.api.ProxyServer;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,9 @@ public class CloudServerManagerImpl extends AbstractCloudServerManager {
        // ProxyWrapper.getINSTANCE().getConnectionToManager().writeAndFlush(new ShutdownCloudServerPacket(iCloudServer.uniqueId()));
         if(!iCloudServer.serverType().equals(ServerTypes.PROXY)) return;
         if(ProxyWrapper.getINSTANCE().isCloudPluginLoaded()) {
-            //TODO -> stop service
+
+                ProxyServer.getInstance().stop();
+
         }
 
     }
@@ -58,13 +61,19 @@ public class CloudServerManagerImpl extends AbstractCloudServerManager {
             Agent.appendJarFile(jar);
             String main = jar.getManifest().getMainAttributes().getValue("Main-Class");
             Class mainClass = Class.forName(main);
-            mainClass.getMethod("main", String[].class).invoke(null, (Object) new String[] {});
+            new Thread(()-> {
+                try {
+                    mainClass.getMethod("main", String[].class).invoke(null, (Object) new String[] {});
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }).start();
             ProxyWrapper.getINSTANCE().setCloudPluginLoaded(true);
             CloudApi.getINSTANCE().getServerManager().registerServer(ProxyWrapper.server);
-        } catch (IOException | ClassNotFoundException | InvocationTargetException | IllegalAccessException | NoSuchMethodException ex) {
+
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-
 
 
     }
