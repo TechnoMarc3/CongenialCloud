@@ -47,5 +47,14 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: org.example:ProxyWrapper:1.0-SNAPSHOT">
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/example/ProxyWrapper/1.0-SNAPSHOT/ProxyWrapper-1.0-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

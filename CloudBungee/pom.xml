@@ -78,5 +78,13 @@
             <systemPath>C:\Users\marco\.m2\repository\org\example\CloudApi\1.0-SNAPSHOT\CloudApi-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
 
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>ProxyWrapper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>C:\Users\marco\.m2\repository\org\example\ProxyWrapper\1.0-SNAPSHOT\ProxyWrapper-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+
     </dependencies>
 </project>
