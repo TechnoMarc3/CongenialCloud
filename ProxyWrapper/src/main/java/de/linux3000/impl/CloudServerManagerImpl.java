@@ -33,23 +33,42 @@ public class CloudServerManagerImpl extends AbstractCloudServerManager {
     }
 
 
+    private void createServer() {
+
+        File g = new File("./plugins");
+        System.out.println(g.mkdirs());
+
+        File plugin = new File("C:\\Users\\marco\\Documents\\Development\\Cloud\\CloudBungee-1.0-SNAPSHOT.jar");
+
+        File j = new File("./plugins/" + "CloudPlugin.jar");
+
+
+        try {
+            Files.copy(plugin.toPath(), j.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Copied Plugin");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+
 
     @Override
     public void startProxyServer(ICloudServer iCloudServer) {
-        System.out.println(0);
 
-
-        System.out.println(1);
-
+        createServer();
         File g = new File("./"+ iCloudServer.version().getName());
-        System.out.println(2);
 
         try {
             File h = iCloudServer.version();
-            System.out.println(3);
-            System.out.println(h);
+
+
             Files.copy(h.toPath(),g.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println(4);
+
             System.out.println("Copy successful");
         } catch (IOException e) {
 

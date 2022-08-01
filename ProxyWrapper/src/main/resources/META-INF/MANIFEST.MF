@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: de.linux3000.ProxyWrapper
-Launcher-Agent-Class: de.linux3000.Agent
 Agent-Class: de.linux3000.Agent
 Premain-Class: de.linux3000.Agent

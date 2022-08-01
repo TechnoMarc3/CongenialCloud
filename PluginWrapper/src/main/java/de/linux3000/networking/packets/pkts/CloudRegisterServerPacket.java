@@ -1,20 +1,19 @@
 package de.linux3000.networking.packets.pkts;
 
 import de.linux300.api.CloudApi;
-import de.linux300.api.event.events.CloudServerRegisterEvent;
 import de.linux300.api.server.CloudServer;
 import de.linux300.api.server.ServerTypes;
 import de.linux3000.networking.packets.Packet;
 import de.linux3000.networking.packets.PacketManager;
-
-import de.linux3000.utils.*;
-
+import de.linux3000.utils.ArrayUtils;
+import de.linux3000.utils.StringUtils;
 import io.netty.buffer.ByteBuf;
 
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class CloudRegisterServerPacket implements Packet {
+
 
     private UUID uuid;
     private String serverType;

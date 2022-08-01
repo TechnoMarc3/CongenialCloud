@@ -35,6 +35,8 @@ public class ProxyWrapper extends CloudApi{
 
 
     public static void main(String[] args) throws InterruptedException {
+
+
         String proxyFile = args[0];
         System.out.println(proxyFile);
         File proxy = new File(proxyFile);
@@ -53,8 +55,9 @@ public class ProxyWrapper extends CloudApi{
 
 
     public ProxyWrapper() throws InterruptedException {
-        INSTANCE = this;
         nettyClient = new NettyClient();
+        INSTANCE = this;
+
 
         cloudPlayerManager = new CloudPlayerManagerImpl();
         cloudServerGroupManager = new CloudServerGroupManagerImpl();
@@ -82,6 +85,10 @@ public class ProxyWrapper extends CloudApi{
     public void stop() {
         //TODO -> Stop Services
         System.exit(0);
+    }
+
+    public static ProxyCloudServer getServer() {
+        return server;
     }
 
     public void setCloudPluginLoaded(boolean cloudPluginLoaded) {

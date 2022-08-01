@@ -3,6 +3,7 @@ package de.linux3000.networking;
 import de.linux3000.ServerWrapper;
 import de.linux3000.networking.packets.Packet;
 import de.linux3000.networking.packets.PacketManager;
+import de.linux3000.networking.packets.pkts.CloudUpdateServerPacket;
 import de.linux3000.networking.packets.pkts.HelloPacket;
 import de.linux3000.utils.ArrayUtils;
 import io.netty.bootstrap.Bootstrap;
@@ -45,12 +46,18 @@ public class NettyClient {
                                     })
                                     .addLast("decoder", new ByteToMessageDecoder() {
                                         @Override
-                                        protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
+                                        protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
 
                                             int id = byteBuf.readInt();
                                             if(id == -1) throw new IOException("Invalid packet id!");
                                             Packet packet = (Packet) PacketManager.in[id].newInstance();
-                                            packet.read(byteBuf);
+                                            if(packet instanceof CloudUpdateServerPacket) {
+                                                ((CloudUpdateServerPacket) packet).read(byteBuf, ctx.channel());
+                                            }
+                                            else {
+                                                System.out.println("reading : " + packet);
+                                                packet.read(byteBuf);
+                                            }
                                             list.add(packet);
                                         }
                                     })

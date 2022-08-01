@@ -20,6 +20,16 @@ public class PacketManager {
         out[5] = CloudRegisterServerPacket.class;
 
 
+        in[10] = CloudUpdateServerPacket.class;
+        out[10] = CloudUpdateServerPacket.class;
+
+        out[15] = CloudRegisterPlayerPacket.class;
+        in[15] = CloudRegisterPlayerPacket.class;
+
+        in[20] = CloudUpdatePlayerPacket.class;
+        out[20] = CloudUpdatePlayerPacket.class;
+
+
 
     }
 

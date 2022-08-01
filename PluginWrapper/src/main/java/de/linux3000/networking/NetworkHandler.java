@@ -19,17 +19,6 @@ public class NetworkHandler  extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        ByteBuf buf = (ByteBuf) msg;
-        int id = buf.readInt();
-        Class<? extends Packet> packetc = (Class<? extends Packet>) PacketManager.in[id];
-        if(packetc != null) {
-            try {
-                Packet packet = packetc.newInstance();
-                packet.read(buf);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
