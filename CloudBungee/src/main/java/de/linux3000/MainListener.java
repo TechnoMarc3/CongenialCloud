@@ -8,6 +8,7 @@ import net.md_5.bungee.api.connection.PendingConnection;
 import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -30,6 +31,11 @@ public class MainListener implements Listener {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        CloudPlayer player = (CloudPlayer) CloudApi.getINSTANCE().getPlayerManager().getPlayerByUUID(event.getPlayer().getUniqueId());
+            player.setProxy(ProxyWrapper.getServer());
+            CloudApi.getINSTANCE().getPlayerManager().update(player);
+
     }
 
 
@@ -41,6 +47,8 @@ public class MainListener implements Listener {
         CloudPlayer player = new CloudPlayer(name, uuid);
         CloudApi.getINSTANCE().getPlayerManager().addPlayerToCloud(player);
     }
+
+
 
 
 
