@@ -12,6 +12,7 @@ import de.linux3000.manager.CloudServerGroupManager;
 import de.linux3000.networking.NettyServer;
 import de.linux3000.startup.StartupManager;
 import de.linux3000.startup.StartupOrganizer;
+import io.netty.channel.Channel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,22 +29,12 @@ public class Cloud {
     private CloudServerGroupCacheManager cloudServerGroupCacheManager;
     private List<EventListener> listeners = new ArrayList<>();
 
+    private List<Channel> connectionsToServer = new ArrayList<>();
+
+    private Channel connectionToProxyWrapper;
+
 
     public static void main(String[] args) {
-
-        new Cloud().initialize();
-
-        CloudApi.setInstance(new CloudApiImpl());
-
-
-        getINSTANCE().organizer.registerQuestions();
-        getINSTANCE().organizer.registerServerQuestions();
-     getINSTANCE().manager.doStartup();
-
-        getINSTANCE().commandRegistry.registerCommands();
-
-
-
         new Thread(() -> {
             try {
                 new NettyServer();
@@ -51,6 +42,24 @@ public class Cloud {
                 e.printStackTrace();
             }
         }).start();
+
+        new Cloud().initialize();
+
+        CloudApi.setInstance(new CloudApiImpl());
+
+
+
+
+        getINSTANCE().organizer.registerQuestions();
+        getINSTANCE().organizer.registerServerQuestions();
+        getINSTANCE().commandRegistry.registerCommands();
+
+
+
+        getINSTANCE().manager.doStartup();
+
+
+
 
         new Thread(() -> {
             getINSTANCE().commandManager.listenForCommands();
@@ -75,6 +84,22 @@ public class Cloud {
 
     }
 
+    public void addServerConnection(Channel channel) {
+        this.connectionsToServer.add(channel);
+    }
+
+    public List<Channel> getConnectionsToServer() {
+        return connectionsToServer;
+    }
+
+    public void setConnectionToProxyWrapper(Channel connectionToProxyWrapper) {
+        this.connectionToProxyWrapper = connectionToProxyWrapper;
+        System.out.println("set proxy connection to: " + connectionToProxyWrapper);
+    }
+
+    public Channel getConnectionToProxyWrapper() {
+        return connectionToProxyWrapper;
+    }
 
     public void registerListener(EventListener listener) {
         listeners.add(listener);

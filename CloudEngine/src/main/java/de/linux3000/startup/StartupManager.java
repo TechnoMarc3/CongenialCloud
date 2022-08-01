@@ -41,7 +41,7 @@ public class StartupManager {
             e.printStackTrace();
         }
         if(!hasDoneSetup) {
-        //  askStartupQuestions();
+        // askStartupQuestions();
         }
     }
 
@@ -149,7 +149,7 @@ public class StartupManager {
 
         }
 
-     // createProxy();
+     createProxy();
 
         this.hasDoneSetup = true;
         isDoingAnySetup = false;

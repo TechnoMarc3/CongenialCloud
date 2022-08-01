@@ -12,6 +12,8 @@ import java.util.Arrays;
 public class CloudEventManagerImpl implements ICloudEventManager {
     @Override
     public void callEvent(IEvent iEvent) {
+
+
         System.out.println("call: " + iEvent);
         for(EventListener listener : Cloud.getINSTANCE().getListeners()) {
             Class<? extends EventListener> listenerClass = listener.getClass();

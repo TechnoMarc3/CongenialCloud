@@ -1,5 +1,6 @@
 package de.linux3000.networking.packets.pkts;
 
+import de.linux3000.Cloud;
 import de.linux3000.networking.packets.Packet;
 import de.linux3000.networking.packets.PacketManager;
 import de.linux3000.utils.ArrayUtils;
@@ -22,10 +23,10 @@ public class HelloPacket implements Packet {
              //   System.out.println("Proxy Hello");
                 break;
             case 2:
-             //   System.out.println("Server Wrapper Hello");
+                    Cloud.getINSTANCE().addServerConnection(channel);
                 break;
             case 3:
-              //  System.out.println("Proxy Wrapper Hello");
+                Cloud.getINSTANCE().setConnectionToProxyWrapper(channel);
                 break;
         }
     }

@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 
 public class NetworkHandler extends SimpleChannelInboundHandler<Packet>{
-
-    public static Channel proxyChannel;
     public static HashMap<String, Channel> serverChannel;
 
 

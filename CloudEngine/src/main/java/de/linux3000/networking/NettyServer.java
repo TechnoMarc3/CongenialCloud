@@ -2,14 +2,12 @@ package de.linux3000.networking;
 
 import de.linux3000.networking.packets.Packet;
 import de.linux3000.networking.packets.PacketManager;
+import de.linux3000.networking.packets.pkts.CloudUpdateServerPacket;
 import de.linux3000.networking.packets.pkts.HelloPacket;
 import de.linux3000.utils.ArrayUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -30,44 +28,51 @@ public class NettyServer {
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
 
-            new ServerBootstrap()
-                    .group(boss, worker)
-                    .channel(NioServerSocketChannel.class)
-                    .childHandler(new ChannelInitializer<Channel>() {
-                        protected void initChannel(Channel channel) {
-                            channel.pipeline()
-                                    .addLast("encoder", new MessageToByteEncoder<Packet>() {
-                                        @Override
-                                        protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
+        ChannelFuture bind = new ServerBootstrap()
+                .group(boss, worker)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(new ChannelInitializer<Channel>() {
+                    protected void initChannel(Channel channel) {
+                        channel.pipeline()
+                                .addLast("encoder", new MessageToByteEncoder<Packet>() {
+                                    @Override
+                                    protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
 
-                                            int id = ArrayUtils.find(PacketManager.out, packet.getClass());
+                                        int id = ArrayUtils.find(PacketManager.out, packet.getClass());
 
 
-                                            packet.write(byteBuf);
+                                        packet.write(byteBuf);
+                                    }
+                                })
+                                .addLast("decoder", new ByteToMessageDecoder() {
+                                    @Override
+                                    protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
+
+
+                                        int id = byteBuf.readInt();
+                                        System.out.println(id);
+                                        Packet packet = (Packet) PacketManager.in[id].newInstance();
+                                        if (packet instanceof HelloPacket) {
+                                            ((HelloPacket) packet).read(byteBuf, ctx.channel());
                                         }
-                                    })
-                                    .addLast("decoder", new ByteToMessageDecoder() {
-                                        @Override
-                                        protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
-
-
-                                            int id = byteBuf.readInt();
-
-                                            Packet packet = (Packet) PacketManager.in[id].newInstance();
-                                            if(packet instanceof HelloPacket) {
-                                                ((HelloPacket) packet).read(byteBuf, ctx.channel());
-                                            }else {
-                                                packet.read(byteBuf);
-                                            }
-                                            list.add(packet);
+                                        else if(packet instanceof CloudUpdateServerPacket) {
+                                            ((CloudUpdateServerPacket) packet).read(byteBuf, ctx.channel());
                                         }
-                                    })
+                                        else {
+                                            System.out.println("reading : " + packet);
+                                            packet.read(byteBuf);
+                                        }
+                                        list.add(packet);
+                                    }
+                                })
 
-                                    .addLast(new NetworkHandler());
+                                .addLast(new NetworkHandler());
 
 
-                        }
-                    }).bind(25847).sync().channel().closeFuture().syncUninterruptibly();
+                    }
+                }).bind(25847);
+        System.out.println("Bound successfully");
+        bind.sync().channel().closeFuture().syncUninterruptibly();
 
         }
 

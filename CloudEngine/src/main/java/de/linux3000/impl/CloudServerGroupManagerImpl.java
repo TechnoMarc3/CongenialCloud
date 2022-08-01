@@ -1,9 +1,7 @@
 package de.linux3000.impl;
 
-import de.linux300.api.CloudApi;
 import de.linux300.api.manager.impl.AbstractCloudServerGroupManager;
 import de.linux300.api.serverGroup.ICloudServerGroup;
-import de.linux3000.base.CloudServer;
 
 import java.io.BufferedReader;
 import java.io.File;
