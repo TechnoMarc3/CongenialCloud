@@ -19,6 +19,9 @@ public interface ICloudPlayerManager {
 
     ICloudPlayer getPlayerByUUID(UUID uuid);
 
+    List<ICloudPlayer> getAllRegisteredPlayers();
+
+
     boolean banPlayer(ICloudPlayer player, String reason);
     boolean kickPlayer(ICloudPlayer player, String reason); //3* warn = ban
 

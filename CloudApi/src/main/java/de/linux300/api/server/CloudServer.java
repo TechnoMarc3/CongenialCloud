@@ -5,6 +5,7 @@ import de.linux300.api.server.ICloudServer;
 import de.linux300.api.serverGroup.ICloudServerGroup;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class CloudServer implements ICloudServer {
     boolean isFull;
     boolean isOnline;
     ServerTypes serverTypes;
+    int playerAmount;
 
     public CloudServer(int server, int ram, String name, ICloudServerGroup group, ServerTypes types) {
         this.server = server;
@@ -31,13 +33,22 @@ public class CloudServer implements ICloudServer {
         this.uuid = UUID.randomUUID();
         this.serverTypes = types;
 
+        players = new ArrayList<>();
+
 
     }
 
-    public CloudServer(UUID uuid, String serverType) {
+    public CloudServer(String name, UUID uuid, String host, int port, ServerTypes serverTypes) {
+        this.name = name;
         this.uuid = uuid;
-        this.serverTypes = ServerTypes.valueOf(serverType);
+        this.host = host;
+        this.port = port;
+        this.serverTypes = serverTypes;
+
+        players = new ArrayList<>();
     }
+
+
 
     public void setServer(int server) {
         this.server = server;
@@ -115,12 +126,12 @@ public class CloudServer implements ICloudServer {
 
     @Override
     public String host() {
-        return null;
+        return host;
     }
 
     @Override
     public int port() {
-        return 0;
+        return port;
     }
 
     @Override

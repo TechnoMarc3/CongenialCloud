@@ -11,11 +11,10 @@ public interface ICloudPlayer {
     UUID uuid();
 
 
-    ICloudServer server();
-    ICloudServerGroup serverGroup();
-
-
-
-
+    //TODO -> Server connect state
+    ICloudServer getConnectedServer();
+    ICloudServer getConnectedProxy();
+    String getConnectedServerName();
+    String getConnectedProxyName();
 
 }

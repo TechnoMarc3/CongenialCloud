@@ -4,6 +4,7 @@ import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.serverGroup.ICloudServerGroup;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,11 +15,14 @@ public class ProxyCloudServer implements ICloudServer{
     boolean full;
     boolean online;
 
+    private List<ICloudPlayer> players;
+
 
 
     public ProxyCloudServer(File version) {
         uuid = UUID.randomUUID();
         this.version = version;
+        players = new ArrayList<>();
     }
 
     public void setFull(boolean full) {
@@ -66,12 +70,12 @@ public class ProxyCloudServer implements ICloudServer{
 
     @Override
     public String host() {
-        return null;
+        return "0.0.0.0";
     }
 
     @Override
     public int port() {
-        return 0;
+        return 25577;
     }
 
     @Override
@@ -91,7 +95,7 @@ public class ProxyCloudServer implements ICloudServer{
 
     @Override
     public List<ICloudPlayer> player() {
-        return null;
+        return players;
     }
 
     @Override

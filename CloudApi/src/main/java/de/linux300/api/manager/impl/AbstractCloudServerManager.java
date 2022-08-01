@@ -2,7 +2,9 @@ package de.linux300.api.manager.impl;
 
 import de.linux300.api.CloudApi;
 import de.linux300.api.event.events.CloudServerRegisterEvent;
+import de.linux300.api.event.events.CloudServerUpdateEvent;
 import de.linux300.api.manager.ICloudServerManager;
+import de.linux300.api.player.CloudPlayer;
 import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.server.ICloudServer;
 
@@ -38,6 +40,14 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
     @Override
     public void addPlayerToServer(ICloudServer server, ICloudPlayer player) {
         server.player().add(player);
+        System.out.println("added player to server");
+        this.update(server);
+        System.out.println("updated");
+        CloudPlayer cloudPlayer = (CloudPlayer) player;
+        cloudPlayer.setServer(server);
+        System.out.println("set server in instance: " + cloudPlayer);
+        CloudApi.getINSTANCE().getPlayerManager().update(cloudPlayer);
+        System.out.println("updated player");
     }
 
     @Override
@@ -47,6 +57,7 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
 
     @Override
     public void registerServer(ICloudServer server) {
+        if(servers.contains(server)) return;
         System.out.println("server: " + server);
         servers.add(server);
 
@@ -68,7 +79,9 @@ public abstract class AbstractCloudServerManager implements ICloudServerManager 
 
     @Override
     public void update(ICloudServer server) {
-        this.servers.remove(server);
+        this.servers.remove(CloudApi.getINSTANCE().getServerManager().getServerByUUID(server.uniqueId()));
         this.servers.add(server);
+
+        CloudApi.getINSTANCE().getEventManager().callEvent(new CloudServerUpdateEvent(server));
     }
 }

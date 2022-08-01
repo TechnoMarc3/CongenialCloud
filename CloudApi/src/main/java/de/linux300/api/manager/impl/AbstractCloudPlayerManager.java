@@ -1,5 +1,8 @@
 package de.linux300.api.manager.impl;
 
+import de.linux300.api.CloudApi;
+import de.linux300.api.event.events.CloudPlayerRegisterEvent;
+import de.linux300.api.event.events.CloudPlayerUpdateEvent;
 import de.linux300.api.manager.ICloudPlayerManager;
 import de.linux300.api.player.ICloudPlayer;
 import de.linux300.api.server.ICloudServer;
@@ -15,7 +18,14 @@ public abstract class AbstractCloudPlayerManager implements ICloudPlayerManager 
 
     @Override
     public void addPlayerToCloud(ICloudPlayer player) {
-        players.add(player);
+        if(!this.players.contains(player)) {
+            System.out.println("player: " + player);
+            players.add(player);
+            System.out.println(players);
+            System.out.println("registered");
+            CloudApi.getINSTANCE().getEventManager().callEvent(new CloudPlayerRegisterEvent(player));
+        }
+
     }
 
     @Override
@@ -46,8 +56,16 @@ public abstract class AbstractCloudPlayerManager implements ICloudPlayerManager 
     }
 
     @Override
+    public List<ICloudPlayer> getAllRegisteredPlayers() {
+        return players;
+    }
+
+    @Override
     public void update(ICloudPlayer player) {
+
         this.players.remove(player);
         this.players.add(player);
+
+        CloudApi.getINSTANCE().getEventManager().callEvent(new CloudPlayerUpdateEvent(player));
     }
 }

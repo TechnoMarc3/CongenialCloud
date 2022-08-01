@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface ICloudServer {
 
+
+    //TODO -> Server state
     String name();
     int server();
     UUID uniqueId();
